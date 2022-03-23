@@ -17,21 +17,17 @@ while True:
 
 song_year_str = str(song_year)
 
-# get the response in the form of html
 wikiurl="https://en.wikipedia.org/wiki/Billboard_Year-End_Hot_100_singles_of_" + song_year_str
 table_class="wikitable sortable jquery-tablesorter"
 response=requests.get(wikiurl)
 
-# parse data from the html into a beautifulsoup object
 soup = BeautifulSoup(response.text, 'html.parser')
 year=soup.find('table',{'class':"wikitable"})
 
 df=pd.read_html(str(year))
-# convert list to dataframe
+
 df=pd.DataFrame(df[0])
 
-
-# drop the unwanted columns
 data = df.drop(["Artist(s)", "No.",], axis=1)
 
 
